@@ -24,7 +24,7 @@ router.get('/get-all-products', (req, res)=>{
 })
 
 router.get('/get-product/:id', (req, res)=>{
-    productController.getProductByID((error, payload)=>{
+    productController.getProductByID(req.params.id, (error, payload)=>{
         if(error){
             res.status(500).json({message: "Error", error: error})
         }else{

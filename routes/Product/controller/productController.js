@@ -34,8 +34,8 @@ module.exports = {
     },
 
    //getProductByID
-   getProductByID: function(id, body, callback){
-        Product.findById(id, body)
+   getProductByID: function(id, callback){
+        Product.findOne({_id: id})
         .then(Payload =>{
             callback(null, Payload)
         }) 
