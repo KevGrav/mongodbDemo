@@ -2,7 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 
 const mongoose = require('mongoose')
-const Product = require('./routes/Product/model/Product')
+const productsRouter = require('./routes/Product/model/productsRouter')
 const userRouter = require('./routes/users/model/userRouter')
 
 mongoose
@@ -18,7 +18,9 @@ const app = express()
 app.use(logger('dev'))
 app.use(express.json())
 app.use('/api/users', userRouter)
+app.use('/api/Product', productsRouter)
 
+// First way of creating new product
 // app.post('/', async (req, res)=>{
 //     try{
 //         const{productName, price, inStock} = req.body

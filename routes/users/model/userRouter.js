@@ -1,46 +1,27 @@
 const express = require('express')
 const router = express.Router()
 
-const userController = require('../controller/userController')
+const {getAllUsers} = require('../controller/userController')
 
-router.get('/get-all-users', (req, res)=>{
-    userController.getAllUsers((error, payload)=>{
-        if(error){
-            res.status(500).json({message: "Error", error: error})
-        }else{
-            res.json({message: 'Users found.', data: payload})
-        }
-    })
+router.get('/get-all-users', async(req, res)=>{
+    try {
+        const foundUsers =  await getAllUsers()
+        res.json({message: "Found all users", payload: foundUsers})
+    } catch (error) {
+        res.status(500).json({message: "Error", error: error})
+    }
 })
 
 router.post('/create-user', (req, res)=>{
-    userController.createUser(req.body, (error, payload)=>{
-        if(error){
-            res.status(500).json({message: "Error", error: error})
-        }else{
-            res.json({message: 'User created.', data: payload})
-        }
-    }) 
+    
 })
 
 router.put('/find-and-update/:id', (req, res)=> {
-    userController.updateUserByID(req.params.id, req.body, (err, payload)=>{
-        if(err){
-            res.status(500).json({message: "Error", error: err})
-        }else{
-            res.json({message: 'User updated.', data: payload})
-        }
-    })
+    
 })
 
 router.delete('/find-and-delete/:id', (req, res)=>{
-    userController.deleteUserByID(req.params.id, (err, payload)=>{
-        if(err){
-            res.status(500).json({message: "Error", error: err})
-        }else{
-            res.json({message: 'User deleted.', data: payload})
-        } 
-    })
+    
 })
 
 module.exports = router
